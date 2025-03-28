@@ -24,7 +24,7 @@ class ErrorMessages:
     """HTTP_404_NOT_FOUND"""''
 
 
-    AGENT_NAME_EXIST = Error(
+    AGENT_NOT_FOUND = Error(
         http_status=status.HTTP_404_NOT_FOUND,
         error_code=409000,
         message="Agent not found with ID provided",
