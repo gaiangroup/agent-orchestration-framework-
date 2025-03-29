@@ -22,7 +22,7 @@ class PIDBHelper:
         headers = {"Content-Type": "application/json", "Authorization": token}
         payload_to_fetch = {"dbType": "MONGO", "ownedOnly": "true", "filter": payload}
         async with httpx.AsyncClient() as client:
-            response = await client.post(url, headers=headers, json=payload_to_fetch)
+            response = await client.get(url, headers=headers, json=payload_to_fetch)
         if response.status_code not in [200, 204]:
             raise HTTPException(status_code=500, detail=f"Failed to retrieve data from {schemaName}: {response.json()}")
         return response.json()
@@ -33,7 +33,7 @@ class PIDBHelper:
         headers = {"Content-Type": "application/json", "Authorization": token}
         payload_to_update = {"primarykeyEnable": "true", "data": payload}
         async with httpx.AsyncClient() as client:
-            response = await client.post(url, headers=headers, json=payload_to_update)
+            response = await client.put(url, headers=headers, json=payload_to_update)
         if response.status_code not in [200, 204]:
             raise HTTPException(status_code=500, detail=f"Failed to update data in {schemaName}: {response.json()}")
         return response.json()
@@ -44,7 +44,7 @@ class PIDBHelper:
         headers = {"Content-Type": "application/json", "Authorization": token}
         payload_to_delete = {"dbType": "TIDB", "filter": payload}
         async with httpx.AsyncClient() as client:
-            response = await client.post(url, headers=headers, json=payload_to_delete)
+            response = await client.delete(url, headers=headers, json=payload_to_delete)
         if response.status_code not in [200, 204]:
             raise HTTPException(status_code=500, detail=f"Failed to delete data from {schemaName}: {response.json()}")
         return response.json()
